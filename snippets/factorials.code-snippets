@@ -1,0 +1,30 @@
+{
+  "Modular Factorial Functions": {
+    "prefix": "factorials",
+    "body": [
+      "vector<long long> modfac(long long n, long long mod) {",
+      "\tvector<long long> fact(n + 1);",
+      "\tfact[0] = 1;",
+      "\tfor (long long i = 1; i < n + 1; i++) {",
+      "\t\tfact[i] = (fact[i - 1] * i) % mod;",
+      "\t}",
+      "\treturn fact;",
+      "}",
+      "",
+      "vector<long long> imodfac(long long n, long long m1) {",
+      "\tvector<long long> ifact(n + 1);",
+      "\tvector<long long> fact(n + 1);",
+      "\tfact[0] = 1;",
+      "\tfor (long long i = 1; i < n + 1; i++) fact[i] = (fact[i - 1] * i) % m1;",
+      "\tifact[n] = inv(fact[n], m1);",
+      "\tfor (long long i = n - 1; i > -1; i--) {",
+      "\t\tifact[i] = (ifact[i + 1] * (i + 1)) % m1;",
+      "\t}",
+      "\treturn ifact;",
+      "}",
+      "",
+      ""
+    ],
+    "description": "Modular factorial and inverse factorial computation functions"
+  }
+}

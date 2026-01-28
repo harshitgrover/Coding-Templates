@@ -1,64 +1,72 @@
-template<typename Node>
-struct SparseTable {
-    vector<vector<Node>> table;
-    vector<long long> logValues;
-    long long n;
-    long long maxLog;
-    vector<long long> a;
-    SparseTable(vector<long long> &arr) {
-        n = arr.size();
-        a = arr;
-        table.resize(n);
-        logValues.resize(n + 1);
-        maxLog = log2(n);
-        logValues[1] = 0;
-        for (long long i = 2; i <= n; i++) {
-            logValues[i] = logValues[i / 2] + 1;
-        }
-        for (long long i = 0; i < n; i++) {
-            table[i].resize(maxLog + 1);
-            fill(table[i].begin(), table[i].end(), Node());
-        }
-        build();
-    }
-    SparseTable(){};
-    void build() {
-        for (long long i = 0; i < n; i++) {
-            table[i][0] = Node(a[i]);
-        }
-        for (long long i = 1; i <= maxLog; i++) {
-            for (long long j = 0; (j + (1 << i)) <= n; j++) {
-                table[j][i].merge(table[j][i - 1], table[j + (1 << (i - 1))][i - 1]);
-            }
-        }
-    }
-    Node queryNormal(long long left, long long right) {
-        Node ans = Node();
-        for (long long j = logValues[right - left + 1]; j >= 0; j--) {
-            if ((1 << j) <= right - left + 1) {
-                ans.merge(ans, table[left][j]);
-                left += (1 << j);
-            }
-        }
-        return ans;
-    }
-    Node queryIdempotent(long long left, long long right) {
-        long long j = logValues[right - left + 1];
-        Node ans = Node();
-        if(right < left) return ans;
-        ans.merge(table[left][j], table[right - (1 << j) + 1][j]);
-        return ans;
-    }
-};
-struct Node1 {
-    long long val; // store more info if required
-    Node1() { // Identity Element
-        val = 0;
-    }
-    Node1(long long v) {
-        val = v;
-    }
-    void merge(Node1 &l, Node1 &r) {
-        val = max(l.val, r.val);
-    }
-};
+{
+  "Sparse Table": {
+    "prefix": "sparsetable",
+    "body": [
+      "template<typename Node>",
+      "struct SparseTable {",
+      "\tvector<vector<Node>> table;",
+      "\tvector<long long> logValues;",
+      "\tlong long n;",
+      "\tlong long maxLog;",
+      "\tvector<long long> a;",
+      "\tSparseTable(vector<long long> &arr) {",
+      "\t\tn = arr.size();",
+      "\t\ta = arr;",
+      "\t\ttable.resize(n);",
+      "\t\tlogValues.resize(n + 1);",
+      "\t\tmaxLog = log2(n);",
+      "\t\tlogValues[1] = 0;",
+      "\t\tfor (long long i = 2; i <= n; i++) {",
+      "\t\t\tlogValues[i] = logValues[i / 2] + 1;",
+      "\t\t}",
+      "\t\tfor (long long i = 0; i < n; i++) {",
+      "\t\t\ttable[i].resize(maxLog + 1);",
+      "\t\t\tfill(table[i].begin(), table[i].end(), Node());",
+      "\t\t}",
+      "\t\tbuild();",
+      "\t}",
+      "\tSparseTable(){};",
+      "\tvoid build() {",
+      "\t\tfor (long long i = 0; i < n; i++) {",
+      "\t\t\ttable[i][0] = Node(a[i]);",
+      "\t\t}",
+      "\t\tfor (long long i = 1; i <= maxLog; i++) {",
+      "\t\t\tfor (long long j = 0; (j + (1 << i)) <= n; j++) {",
+      "\t\t\t\ttable[j][i].merge(table[j][i - 1], table[j + (1 << (i - 1))][i - 1]);",
+      "\t\t\t}",
+      "\t\t}",
+      "\t}",
+      "\tNode queryNormal(long long left, long long right) {",
+      "\t\tNode ans = Node();",
+      "\t\tfor (long long j = logValues[right - left + 1]; j >= 0; j--) {",
+      "\t\t\tif ((1 << j) <= right - left + 1) {",
+      "\t\t\t\tans.merge(ans, table[left][j]);",
+      "\t\t\t\tleft += (1 << j);",
+      "\t\t\t}",
+      "\t\t}",
+      "\t\treturn ans;",
+      "\t}",
+      "\tNode queryIdempotent(long long left, long long right) {",
+      "\t\tlong long j = logValues[right - left + 1];",
+      "\t\tNode ans = Node();",
+      "\t\tif(right < left) return ans;",
+      "\t\tans.merge(table[left][j], table[right - (1 << j) + 1][j]);",
+      "\t\treturn ans;",
+      "\t}",
+      "};",
+      "struct Node1 {",
+      "\tlong long val; // store more info if required",
+      "\tNode1() { // Identity Element",
+      "\t\tval = 0;",
+      "\t}",
+      "\tNode1(long long v) {",
+      "\t\tval = v;",
+      "\t}",
+      "\tvoid merge(Node1 &l, Node1 &r) {",
+      "\t\tval = max(l.val, r.val);",
+      "\t}",
+      "};"
+    ],
+    "description": "Sparse Table data structure with Node template for range queries"
+  }
+}

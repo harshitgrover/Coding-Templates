@@ -1,4 +1,4 @@
-// Fenwick Tree
+// Fenwick Tree (Binary Indexded Tree)
 
 struct fenwicktree {
     long long n;

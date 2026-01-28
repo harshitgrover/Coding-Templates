@@ -1,0 +1,66 @@
+// Generic Sparse Table
+
+template<typename Node>
+struct SparseTable {
+    vector<vector<Node>> table;
+    vector<long long> logValues;
+    long long n;
+    long long maxLog;
+    vector<long long> a;
+    SparseTable(vector<long long> &arr) {
+        n = arr.size();
+        a = arr;
+        table.resize(n);
+        logValues.resize(n + 1);
+        maxLog = log2(n);
+        logValues[1] = 0;
+        for (long long i = 2; i <= n; i++) {
+            logValues[i] = logValues[i / 2] + 1;
+        }
+        for (long long i = 0; i < n; i++) {
+            table[i].resize(maxLog + 1);
+            fill(table[i].begin(), table[i].end(), Node());
+        }
+        build();
+    }
+    SparseTable(){};
+    void build() {
+        for (long long i = 0; i < n; i++) {
+            table[i][0] = Node(a[i]);
+        }
+        for (long long i = 1; i <= maxLog; i++) {
+            for (long long j = 0; (j + (1 << i)) <= n; j++) {
+                table[j][i].merge(table[j][i - 1], table[j + (1 << (i - 1))][i - 1]);
+            }
+        }
+    }
+    Node queryNormal(long long left, long long right) {
+        Node ans = Node();
+        for (long long j = logValues[right - left + 1]; j >= 0; j--) {
+            if ((1 << j) <= right - left + 1) {
+                ans.merge(ans, table[left][j]);
+                left += (1 << j);
+            }
+        }
+        return ans;
+    }
+    Node queryIdempotent(long long left, long long right) {
+        long long j = logValues[right - left + 1];
+        Node ans = Node();
+        if(right < left) return ans;
+        ans.merge(table[left][j], table[right - (1 << j) + 1][j]);
+        return ans;
+    }
+};
+struct Node1 {
+    long long val; // store more info if required
+    Node1() { // Identity Element
+        val = 0;
+    }
+    Node1(long long v) {
+        val = v;
+    }
+    void merge(Node1 &l, Node1 &r) {
+        val = max(l.val, r.val);
+    }
+};

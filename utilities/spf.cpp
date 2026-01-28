@@ -1,0 +1,38 @@
+// SPF (Smallest Prime Factor) utilities
+
+vector<long long> spf(long long n) {
+    vector<long long> spf(n + 1);
+    for (long long i = 1; i <= n; i++)
+        spf[i] = i;
+    for (long long i = 2; i * i <= n; i++) {
+        if (spf[i] == i) {
+            for (long long j = i * i; j <= n; j += i) {
+                if (spf[j] == j)
+                    spf[j] = i;
+            }
+        }
+    }
+    return spf;
+}
+
+bool isprime(long long x, const vector<long long>& spf) {
+    return x >= 2 && spf[x] == x;
+}
+
+vector<long long> genprime(long long n, const vector<long long>& spf) {
+    vector<long long> primes;
+    for (long long i = 2; i <= n; i++) {
+        if (spf[i] == i)
+            primes.push_back(i);
+    }
+    return primes;
+}
+
+vector<long long> prime_factors(long long n, const vector<long long>& spf) {
+    vector<long long> f;
+    while (n > 1) {
+        f.push_back(spf[n]);
+        n /= spf[n];
+    }
+    return f;
+}

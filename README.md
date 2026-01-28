@@ -42,8 +42,7 @@ This repository includes commonly used **data structures**, **utility functions*
 ---
 
 ## 🎯 Use Cases
-- Competitive programming
-- Coding interviews
+- Competitive Programming
 - Algorithm practice
 - Rapid prototyping in C++
 

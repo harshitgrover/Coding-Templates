@@ -1,85 +1,93 @@
-template<typename Node, typename Update>
-struct SegTree {
-    vector<Node> tree;
-    vector<long long> arr; // type may change
-    long long n;
-    long long s;
-    SegTree(vector<long long> &a) { // change if type updated
-        arr = a;
-        n = a.size();
-        s = 1;
-        while(s < 2 * n){
-            s = s << 1;
-        }
-        tree.resize(s); fill(tree.begin(), tree.end(), Node());
-        build(0, n - 1, 1);
-    }
-    void build(long long start, long long end, long long index)  // Never change this
-    {
-        if (start == end)   {
-            tree[index] = Node(arr[start]);
-            return;
-        }
-        long long mid = (start + end) / 2;
-        build(start, mid, 2 * index);
-        build(mid + 1, end, 2 * index + 1);
-        tree[index].merge(tree[2 * index], tree[2 * index + 1]);
-    }
-    void update(long long start, long long end, long long index, long long query_index, Update &u)  // Never Change this
-    {
-        if (start == end) {
-            u.apply(tree[index]);
-            return;
-        }
-        long long mid = (start + end) / 2;
-        if (mid >= query_index)
-            update(start, mid, 2 * index, query_index, u);
-        else
-            update(mid + 1, end, 2 * index + 1, query_index, u);
-        tree[index].merge(tree[2 * index], tree[2 * index + 1]);
-    }
-    Node query(long long start, long long end, long long index, long long left, long long right) { // Never change this
-        if (start > right || end < left)
-            return Node();
-        if (start >= left && end <= right)
-            return tree[index];
-        long long mid = (start + end) / 2;
-        Node l, r, ans;
-        l = query(start, mid, 2 * index, left, right);
-        r = query(mid + 1, end, 2 * index + 1, left, right);
-        ans.merge(l, r);
-        return ans;
-    }
-    void make_update(long long index, long long val) {  // pass in as many parameters as required
-        Update new_update = Update(val); // may change
-        update(0, n - 1, 1, index, new_update);
-    }
-    Node make_query(long long left, long long right) {
-        return query(0, n - 1, 1, left, right);
-    }
-};
-
-
-struct Node1 {
-    long long val; // may change
-    Node1() { // Identity element
-        val = 0;    // may change
-    }
-    Node1(long long p1) {  // Actual Node
-        val = p1; // may change
-    }
-    void merge(Node1 &l, Node1 &r) { // Merge two child nodes
-        val = l.val + r.val;  // may change
-    }
-};
-
-
-struct Update1 {
-    long long val; // may change
-    Update1(long long p1) { // Actual Update
-        val = p1; // may change
-    }
-    void apply(Node1 &a) { // apply update to given node
-        a.val = val; // may change
-    }
-};
+{
+  "Segment Tree": {
+    "prefix": "segtree",
+    "body": [
+      "template<typename Node, typename Update>",
+      "struct SegTree {",
+      "\tvector<Node> tree;",
+      "\tvector<long long> arr; // type may change",
+      "\tlong long n;",
+      "\tlong long s;",
+      "\tSegTree(vector<long long> &a) { // change if type updated",
+      "\t\tarr = a;",
+      "\t\tn = a.size();",
+      "\t\ts = 1;",
+      "\t\twhile(s < 2 * n){",
+      "\t\t\ts = s << 1;",
+      "\t\t}",
+      "\t\ttree.resize(s); fill(tree.begin(), tree.end(), Node());",
+      "\t\tbuild(0, n - 1, 1);",
+      "\t}",
+      "\tvoid build(long long start, long long end, long long index)  // Never change this",
+      "\t{",
+      "\t\tif (start == end)   {",
+      "\t\t\ttree[index] = Node(arr[start]);",
+      "\t\t\treturn;",
+      "\t\t}",
+      "\t\tlong long mid = (start + end) / 2;",
+      "\t\tbuild(start, mid, 2 * index);",
+      "\t\tbuild(mid + 1, end, 2 * index + 1);",
+      "\t\ttree[index].merge(tree[2 * index], tree[2 * index + 1]);",
+      "\t}",
+      "\tvoid update(long long start, long long end, long long index, long long query_index, Update &u)  // Never Change this",
+      "\t{",
+      "\t\tif (start == end) {",
+      "\t\t\tu.apply(tree[index]);",
+      "\t\t\treturn;",
+      "\t\t}",
+      "\t\tlong long mid = (start + end) / 2;",
+      "\t\tif (mid >= query_index)",
+      "\t\t\tupdate(start, mid, 2 * index, query_index, u);",
+      "\t\telse",
+      "\t\t\tupdate(mid + 1, end, 2 * index + 1, query_index, u);",
+      "\t\ttree[index].merge(tree[2 * index], tree[2 * index + 1]);",
+      "\t}",
+      "\tNode query(long long start, long long end, long long index, long long left, long long right) { // Never change this",
+      "\t\tif (start > right || end < left)",
+      "\t\t\treturn Node();",
+      "\t\tif (start >= left && end <= right)",
+      "\t\t\treturn tree[index];",
+      "\t\tlong long mid = (start + end) / 2;",
+      "\t\tNode l, r, ans;",
+      "\t\tl = query(start, mid, 2 * index, left, right);",
+      "\t\tr = query(mid + 1, end, 2 * index + 1, left, right);",
+      "\t\tans.merge(l, r);",
+      "\t\treturn ans;",
+      "\t}",
+      "\tvoid make_update(long long index, long long val) {  // pass in as many parameters as required",
+      "\t\tUpdate new_update = Update(val); // may change",
+      "\t\tupdate(0, n - 1, 1, index, new_update);",
+      "\t}",
+      "\tNode make_query(long long left, long long right) {",
+      "\t\treturn query(0, n - 1, 1, left, right);",
+      "\t}",
+      "};",
+      "",
+      "",
+      "struct Node1 {",
+      "\tlong long val; // may change",
+      "\tNode1() { // Identity element",
+      "\t\tval = 0;    // may change",
+      "\t}",
+      "\tNode1(long long p1) {  // Actual Node",
+      "\t\tval = p1; // may change",
+      "\t}",
+      "\tvoid merge(Node1 &l, Node1 &r) { // Merge two child nodes",
+      "\t\tval = l.val + r.val;  // may change",
+      "\t}",
+      "};",
+      "",
+      "",
+      "struct Update1 {",
+      "\tlong long val; // may change",
+      "\tUpdate1(long long p1) { // Actual Update",
+      "\t\tval = p1; // may change",
+      "\t}",
+      "\tvoid apply(Node1 &a) { // apply update to given node",
+      "\t\ta.val = val; // may change",
+      "\t}",
+      "};"
+    ],
+    "description": "Segment Tree with Node and Update templates for range queries and updates"
+  }
+}

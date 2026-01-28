@@ -1,0 +1,31 @@
+{
+  "Power Functions": {
+    "prefix": "power",
+    "body": [
+      "long long pow(long long a, long long b) {",
+      "\tlong long res = 1;",
+      "\twhile (b > 0) {",
+      "\t\tif (b & 1) res *= a;",
+      "\t\ta *= a;",
+      "\t\tb >>= 1;",
+      "\t}",
+      "\treturn res;",
+      "}",
+      "",
+      "long long modpow(long long a, long long b, long long m) {",
+      "\tlong long res = 1;",
+      "\twhile (b) {",
+      "\t\tif (b & 1) res = (res * a) % m;",
+      "\t\ta = (a * a) % m;",
+      "\t\tb >>= 1;",
+      "\t}",
+      "\treturn res;",
+      "}",
+      "",
+      "long long inv(long long a, long long m) {",
+      "\treturn modpow(a, m - 2, m);",
+      "}","", ""
+    ],
+    "description": "Efficient binary exponentiation and modular inverse functions"
+  }
+}

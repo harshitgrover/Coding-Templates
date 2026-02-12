@@ -3,7 +3,8 @@ using namespace std;
 
 #define ll long long
 #define ull unsigned long long
-#define dbl long double
+#define double long double
+#define dbl double
 #define str string
 #define elif else if
 #define fi(i, a, b) for (ll i = a; i < b; i++)

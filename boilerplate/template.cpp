@@ -29,6 +29,7 @@ using namespace std;
 #define idk print("ok")
 #define yes print("YES")
 #define no print("NO")
+#define vec vector
 #define vll vector<ll>
 #define vint vector<int>
 #define vvll vector<vll>

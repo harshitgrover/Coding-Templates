@@ -37,6 +37,7 @@ using namespace std;
 #define vvll vector<vll>
 #define pll pair<ll, ll>
 #define sll set<ll>
+#define msll multiset<ll>
 #define vbool vector<bool>
 #define vset vector<sll>
 #define vstr vector<str>

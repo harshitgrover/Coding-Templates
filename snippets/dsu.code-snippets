@@ -26,10 +26,10 @@ public:
     vector<long long> getrank() {
         return rank;
     }
-    long long countsets(long long j) {
+    long long countsets() {
         long long ans = 0;
-        for (long long i = j; i < parent.size() - 1 + j; i++) if (parent[i] == i) ans++;
-        return ans;
+        for (long long i = 0; i < parent.size(); i++) if (parent[i] == i) ans++;
+        return ans-1;
     }
 };
 

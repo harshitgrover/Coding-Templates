@@ -6,16 +6,25 @@ using namespace std;
 #define dbl long double
 #define str string
 #define elif else if
+
 #define fi(i, a, b) for (ll i = a; i < b; i++)
 #define fd(i, a, b) for (ll i = a; i > b; i--)
 #define input(a) for (ll _ = 0; _ < a.size(); _++) cin >> a[_]
 #define iter(a, b) for (auto & b: a)
 #define iterp(a) for (auto & [it1, it2]: a)
-#define prinv(a) iter(a, _) {cout << _ << " ";} cout << endl
+
 #define prin(a) cout << a << " "
 #define print(a) cout << a << endl
+#define prinv(a) fi(_,0,a.size()) {cout << a[_] << " ";} cout << endl
 #define prinp(a) {prin(a.first); print(a.second);}
 #define nline() cout << endl
+
+#define _prin(a) cerr << a << " "
+#define _print(a) cerr << a << endl
+#define _prinv(a) fi(_,0,a.size()) {cerr << a[_] << " ";} cerr << endl
+#define _prinp(a) {_prin(a.first); _print(a.second);}
+#define _nline() cerr << endl
+
 #define all(a) a.begin(), a.end()
 #define rall(a) a.rbegin(), a.rend()
 #define mp make_pair
@@ -29,6 +38,8 @@ using namespace std;
 #define idk print("ok")
 #define yes print("YES")
 #define no print("NO")
+#define lcm(a,b) (((a)/gcd(a,b))*b)
+
 #define vec vector
 #define vll vector<ll>
 #define vint vector<int>
@@ -42,7 +53,6 @@ using namespace std;
 #define vchar vector<char>
 #define vpair vector<pair<ll, ll>>
 #define vdbl vector < long double >
-#define lcm(a,b) (((a)/gcd(a,b))*b)
 
 const ll inf = 1e16;
 const ll mod1 = 1e9 + 7;

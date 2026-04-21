@@ -56,7 +56,7 @@
       "#define vstr vector<str>",
       "#define vchar vector<char>",
       "#define vpair vector<pair<ll, ll>>",
-      "#define vdbl vector < long double >",
+      "#define vdbl vector<long double>",
       "",
       "const ll inf = 1e16;",
       "const ll mod1 = 1e9 + 7;",

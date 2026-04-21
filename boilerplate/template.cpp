@@ -35,7 +35,7 @@ using namespace std;
 #define popf pop_front
 #define fs first
 #define sc second
-#define idk print("ok")
+#define idk _print("ok")
 #define yes print("YES")
 #define no print("NO")
 #define lcm(a,b) (((a)/gcd(a,b))*b)

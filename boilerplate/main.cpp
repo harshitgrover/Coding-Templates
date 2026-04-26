@@ -1,5 +1,3 @@
-// Boilerplate code with macros
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -18,12 +16,14 @@ using namespace std;
 #define prin(a) cout << a << " "
 #define print(a) cout << a << endl
 #define prinv(a) fi(_,0,a.size()) {cout << a[_] << " ";} cout << endl
+#define prins(a) iter(s,_) {cout << _ << " ";} cout << endl
 #define prinp(a) {prin(a.first); print(a.second);}
 #define nline() cout << endl
 
 #define _prin(a) cerr << a << " "
 #define _print(a) cerr << a << endl
 #define _prinv(a) fi(_,0,a.size()) {cerr << a[_] << " ";} cerr << endl
+#define _prins(a) iter(a,_) {cerr << _ << " ";} cerr << endl
 #define _prinp(a) {_prin(a.first); _print(a.second);}
 #define _nline() cerr << endl
 
